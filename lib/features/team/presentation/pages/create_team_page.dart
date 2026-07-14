@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:uuid/uuid.dart';
 
-class CreateTeamPage extends StatefulWidget {
+import 'package:volleyaxis/features/team/data/models/team.dart';
+import 'package:volleyaxis/features/team/presentation/providers/team_provider.dart';
+
+class CreateTeamPage extends ConsumerStatefulWidget {
   const CreateTeamPage({super.key});
 
   @override
-  State<CreateTeamPage> createState() => _CreateTeamPageState();
+  ConsumerState<CreateTeamPage> createState() => _CreateTeamPageState();
 }
 
-class _CreateTeamPageState extends State<CreateTeamPage> {
+class _CreateTeamPageState extends ConsumerState<CreateTeamPage> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _teamNameController = TextEditingController();
-
   final TextEditingController _coachNameController = TextEditingController();
+
+  final Uuid _uuid = const Uuid();
 
   String _selectedGender = 'Male';
   String _selectedAgeCategory = 'Senior';
@@ -25,11 +31,24 @@ class _CreateTeamPageState extends State<CreateTeamPage> {
   }
 
   void _saveTeam() {
-    if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Team saved successfully')));
-    }
+    if (!_formKey.currentState!.validate()) return;
+
+    final team = Team(
+      id: _uuid.v4(),
+      name: _teamNameController.text.trim(),
+      coach: _coachNameController.text.trim(),
+      ageCategory: _selectedAgeCategory,
+      gender: _selectedGender,
+      createdAt: DateTime.now(),
+    );
+
+    ref.read(teamProvider.notifier).addTeam(team);
+
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Team created successfully!')));
+
+    Navigator.pop(context);
   }
 
   @override
@@ -140,9 +159,7 @@ class _CreateTeamPageState extends State<CreateTeamPage> {
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton.icon(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                    onPressed: () => Navigator.pop(context),
                     icon: const Icon(Icons.close),
                     label: const Text('Cancel'),
                   ),
