@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:volleyaxis/features/dashboard/presentation/widgets/dashboard_header.dart';
+import 'package:volleyaxis/features/team/presentation/pages/team_page.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -45,6 +46,12 @@ class DashboardPage extends StatelessWidget {
               icon: Icons.groups,
               title: 'Teams',
               subtitle: 'Manage teams and players.',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const TeamPage()),
+                );
+              },
             ),
 
             const SizedBox(height: 16),
@@ -82,6 +89,7 @@ class DashboardPage extends StatelessWidget {
     required IconData icon,
     required String title,
     required String subtitle,
+    VoidCallback? onTap,
   }) {
     return Card(
       child: ListTile(
@@ -89,6 +97,7 @@ class DashboardPage extends StatelessWidget {
         title: Text(title),
         subtitle: Text(subtitle),
         trailing: const Icon(Icons.arrow_forward_ios),
+        onTap: onTap,
       ),
     );
   }
