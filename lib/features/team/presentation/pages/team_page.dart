@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:volleyaxis/features/team/presentation/pages/create_team_page.dart';
 
 class TeamPage extends StatelessWidget {
   const TeamPage({super.key});
@@ -8,7 +9,12 @@ class TeamPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Teams')),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const CreateTeamPage()),
+          );
+        },
         child: const Icon(Icons.add),
       ),
       body: Center(
