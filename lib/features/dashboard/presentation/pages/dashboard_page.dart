@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:volleyaxis/features/dashboard/presentation/widgets/dashboard_header.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -20,15 +21,8 @@ class DashboardPage extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            const Text(
-              'Welcome Back!',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Ready to track your next volleyball match?',
-              style: TextStyle(color: Colors.grey.shade700, fontSize: 16),
-            ),
+            const DashboardHeader(),
+
             const SizedBox(height: 32),
 
             _dashboardCard(
@@ -70,7 +64,7 @@ class DashboardPage extends StatelessWidget {
 
             const SizedBox(height: 12),
 
-            Card(
+            const Card(
               child: Padding(
                 padding: EdgeInsets.all(20),
                 child: Center(
