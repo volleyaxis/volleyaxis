@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:volleyaxis/features/dashboard/presentation/widgets/dashboard_header.dart';
+import 'package:volleyaxis/features/player/presentation/pages/player_page.dart';
 import 'package:volleyaxis/features/team/presentation/pages/team_page.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -45,11 +47,25 @@ class DashboardPage extends StatelessWidget {
             _dashboardCard(
               icon: Icons.groups,
               title: 'Teams',
-              subtitle: 'Manage teams and players.',
+              subtitle: 'Manage teams.',
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => const TeamPage()),
+                );
+              },
+            ),
+
+            const SizedBox(height: 16),
+
+            _dashboardCard(
+              icon: Icons.person,
+              title: 'Players',
+              subtitle: 'Manage team players.',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const PlayerPage()),
                 );
               },
             ),
